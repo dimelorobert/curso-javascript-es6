@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Ejemplo de Objetos Literales</title>
+   <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.1/styles/default.min.css"> -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/monokai_sublime.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.1/highlight.min.js"></script>
+   <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+   <h2>Objetos Literales</h2>
+
+
+   <strong>Nota:</strong> Para los que no conozcan el término "literal", cabe decir que es una palabra que indica algo
+   escrito de manera
+   "literal".Aunque sea muy feo usar la misma palabra para definir algo, me lo vas a permitir porque es la mejor que
+   existe.Un literal es algo extremadamente sencillo de entender con un ejemplo.
+
+   <pre>
+      <code class="javascript">
+         var x = "hola";
+      </code>
+   </pre>
+
+   En esa línea de código "hola" es un literal.En concreto decimos que es un "literal de cadena".Ahora mira esta otra
+   línea:
+
+   <pre>
+      <code class="javascript">
+         y += 5;
+      </code>
+  
+   </pre>
+
+   Cuando ves un número escrito tal cual en tu código decimos que es un literal numérico.
+
+   <hr>
+   Podemos crear un objeto en Javascript asignando un valor literal de objeto en una variable. Eso se consigue
+   colocando
+   dicho literal entre llaves y dentro de ellas tantas propiedades o métodos con pares "clave/valor", por medio de una
+   sintaxis como esta:
+
+   <pre>
+      <code class="javascript">
+         var dimensiones = {
+            altura: 34,
+            anchura: 455
+         }
+      </code>
+   </pre>
+
+   Como estás viendo, tenemos una variable dimensiones. Al asignarle un literal objeto estamos realmente asignando una
+   referencia a un objeto en la memoria creado con las propiedades que acabamos de asignar.
+
+   Las propiedades se separan por comas y se coloca siempre el nombre de la propiedad, el caracter ":" y luego el valor
+   de
+   la propiedad.
+
+   Por supuesto, también podremos asignar métodos a nuestros objetos literales.
+
+   <pre>
+      <code class="javascript">
+         var dimensiones = {
+            altura: 34,
+            anchura: 455,
+            area: function(){
+              return this.altura * this.anchura;
+            }
+         }
+      </code>
+   </pre>
+
+
+   Como ves, los métodos en Javascript simplemente son propiedades a los que les asignas una función. Dentro del código
+   de
+   tus métodos puedes acceder a las propiedades del objeto a través de la variable this.
+
+   Una vez creado ese objeto, puedes usar la notación punto para acceder a sus propiedades (o métodos).
+
+   <pre>
+      <code class="javascript">
+      //accede a la propiedad altura y le asigna el valor 90
+      dimensiones.altura = 90
+      </code>
+   </pre>
+
+
+   <hr>
+   <strong>Nota:</strong> Los literales de objeto no son la única manera de crear objetos en Javascript. Además existe
+   un manera de definir algo parecido a una clase, pero no es exactamente lo que conocemos en la programación orientada
+   a objetos tradicional y no podríamos llegar a considerarla tal. En lugar de ello podemos crear funciones que, al
+   invocarlas con la palabra "new" te crean nuevos objetos inicializados con esa función. Técnicamente, en vez de
+   definir clases, en Javascript definimos funciones constructoras de objetos. En definitiva, una implementación muy
+   particular que a veces nos puede liar si estamos familiarizados con lenguajes de enfoque más tradicional (en lo que
+   respecta a OOP "Object Oriented Programing") como Java o PHP. Esta es una discusión interesante, que podrías
+   complementar con el artículo dedicado a crear clases en Javascript, pero que no es la que nos ocupa en esta ocasión.
+
+
+
+   <h2>¿Esto no es JSON?</h2>
+   El formato de intercambio de datos JSON se ha popularizado mucho y quizás lo conozcas antes de conocer estos
+   detalles
+   sobre los literales de objeto Javascript. En ese caso puede que te hayas dado cuenta que los literales de objeto
+   Javascript no son más que estructuras JSON. Si es así permíteme apuntar que realmente tendríamos que darle la vuelta
+   a
+   esa frase y decir que la notación JSON utiliza la sintaxis de los literales de objeto Javascript como formato.
+
+   Así pues, lo que conozcas de JSON lo puedes aplicar al mundo de Javascript inmediatamente. De hecho, si has tenido
+   ocasión de trabajar con este formato desde Javascript, habrás comprobado que en la mayoría de los casos puedes
+   volcar
+   un objeto JSON en una variable Javascript e inmediatamente trabajar con él como si fuera un objeto que tienes en la
+   memoria.
+   <script src="./index.js"></script>
+</body>
+
+</html>
