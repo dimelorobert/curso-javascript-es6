@@ -134,26 +134,58 @@ console.log(nombre); //Imprime: Benito Bodoque
    usamos una función para envolverla.
 */
 
+/**
+ * EJEMPLO 5: Var el Hoisting
+ */
+/**
+ * =================================================
+ * Hoisting
+ * =================================================
+ */
+
+/*
+  Como la declaración de variables(y todas las declaraciones en general) se procesa antes de ejecutar cualquier código, 
+  declarar una variable en cualquier parte del código es equivalente a declararla al inicio del mismo.
+  Esto también significa que una variable puede parecer usarse antes de ser declarada.
+  Este comportamiento es llamado hoisting(del inglés "elevación"), ya que la declaración de una variable
+  parece haber sido movida a la cima de la función o código global.
+*/
+
+bla = 2;
+var bla;
+// ...
+
+// Es entendido implicitamente como:
+
+var bla;
+bla = 2;
+
+/* 
+   Es importante señalar que la elevación afectará la declaración de variables, 
+   pero no su inicialización.El valor será asignado precisamente cuando la sentencia de asignación sea alcanzada:
+*/
+console.log(lee); // Imprime: Undefinded
+var lee = 'Hello World!!!';
+console.log(lee); // Imprime: Hello World!!!
+
+
+
+leewongg = 'Hello World Leewongg!';
+var leewongg;
+console.log(leewongg); // Imprime: Hello World Leewongg
+
 
 /*
    En resumen:
    - 'var' al ser declarada se aloja en el global object, por consiguiente tiene un alcance global.
    - 'var' puede ser limitada en su alcance(scope), envolviendola en una función.
    - 'var' puede ser definida/inicializada y actualizada.
-   - 'var' puede ser reasignada despues de una inicializacion.
+   - 'var' puede ser reasignada/redeclarada despues de una inicializacion.
    - 'var' puede ser hoisteada(levantada) en la parte superior de su scope(alcance).
-      Por lo que puede ser llamada antes de ser inicializada, no marca error porque es afectada pro el hoisting.
+      Por lo que puede ser llamada antes de ser inicializada, no marca error porque es afectada por el hoisting.
  */
 
 /*_________________________________________________________________________________________________*/
-
-/**
- * TODO: Pasar este parrafo en la seccion de 'let'
- * Con 'let'  crea una nueva instancia de 'i', en cada iteración, 
- * por eso no se comparte esa referencia como lo hace 'var'.
- * Por consiguiente nos ahorramos varias lineas de código
- * y decrementamos la complejidad a una sola linea.
- */
 
 /*
    NOTA: En un inicio con Javascript se penso en compartir los valores de la variable y que asi pudieran ser alojadas
