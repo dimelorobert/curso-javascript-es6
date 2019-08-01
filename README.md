@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-    <img src="https://bit.ly/2VbCNjQ" alt="logo" width="100%">
+    <img src="https://github.com/icao/curso-javascript-es6/blob/master/banner_es6.jpg" alt="logo" width="100%">
   <br>
 </h1>
 
