@@ -69,3 +69,20 @@
  *        .finally()
  *
  */
+
+const promesa = new Promise(function (resolve, reject) {
+  console.log('Estado -> ♻ Pendiente...')
+  let suma = 4 + 5
+  setTimeout(() => {
+    if (suma === 9) {
+      resolve('Esta promesa fue ✔ cumplida')
+    } else {
+      reject('Esta promesa fue ❌ rechazada')
+    }
+  }, 3000)
+})
+
+promesa
+  .then(response => console.log(response))
+  .catch(error => console.log(error))
+  .finally(() => console.log('Promesa ejecutada'))
