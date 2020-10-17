@@ -1,6 +1,6 @@
 (setq markdown-xhtml-header-content
 "<style type='text/css'>
-a { text-decoration: none; color:red;}
+a { text-decoration: none; color:red !important;}
 a:hover { text-decoration: underline; }
 </style>")
 
