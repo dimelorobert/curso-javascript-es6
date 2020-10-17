@@ -1,7 +1,7 @@
 (setq markdown-xhtml-header-content
 "<style type='text/css'>
 body {
-color: red;
+color: red !important;
 line-height: 1.7em;
 background-color: white;
 padding: 0 1.9em;
