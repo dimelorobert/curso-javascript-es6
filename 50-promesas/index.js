@@ -45,6 +45,8 @@
  *
  * Si un error es lanzado en la función ejecutor, la promesa es rechazada y el valor de retorno del ejecutor es rechazado.
  *
+ * NOTA: Tanto 'resolve' y 'reject', reciben un argumento el cual es el valor que se deasea pasar cuando se consume la promesa.
+ *
  *
  *
  * Estados
@@ -64,25 +66,42 @@
  *
  * const promesa = new Promise(EJECUTOR);
  *    promesa
- *        .then()
- *        .catch()
- *        .finally()
+ *        .then(function(argumento){...código...})
+ *        .catch(function(argumento){...código...})
+ *        .finally(function(){...código...})
  *
+ * Estos 3 métodos reciben como argumento una función anónima, la cual contiene como argumento el valor enviado por los callbacks 'resolve' y 'reject', dentro de la función puede hacerse uso del parámetro enviado.
  */
 
+// Decclaracion de una promesa
 const promesa = new Promise(function (resolve, reject) {
-  console.log('Estado -> ♻ Pendiente...')
+  //Función Ejecutora
+  console.log('Estado Pendiente... ♻') // Estado pendiente
   let suma = 4 + 5
   setTimeout(() => {
     if (suma === 9) {
-      resolve('Esta promesa fue ✔ cumplida')
+      resolve('Esta promesa fue cumplida ✔') // Estado cumplida, se lanza callback con el valor a pasar como argumento
     } else {
-      reject('Esta promesa fue ❌ rechazada')
+      reject('Esta promesa fue rechazada ❌') // Estado rechazada, se lanza callback con el el error como argumento
     }
   }, 3000)
+
+  setTimeout(() => {
+    reject('Se rechazo la promesa ⚠') // Una promesa no puede tener dos estados, por lo que en este caso, la promesa se cumple y esto jamás se ejecuta. Si el primer timeout tuviera el mismo tiempo o uno mayor a este 2do timeout, la promesa se rechazaría. Pero jamás tendría dos estados o uno y despues otro.
+  }, 10000)
 })
 
+// Uso de la promesa
 promesa
-  .then(response => console.log(response))
-  .catch(error => console.log(error))
-  .finally(() => console.log('Promesa ejecutada'))
+  .then(function (response) {
+    //Respuesta de la promesa cumplida, con el método .then() accedemos a la respuesta
+    console.log(response)
+  })
+  .catch(function (error) {
+    //Respuesta de la promesa rechazada, con el método .catch() accedemos al error
+    console.log(error)
+  })
+  .finally(function () {
+    // Éste método siempre se ejecutará al final de la promesa
+    console.log('Fynally -> Promesa ejecutada')
+  })
