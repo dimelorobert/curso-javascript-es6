@@ -105,3 +105,56 @@ promesa
     // Éste método siempre se ejecutará al final de la promesa
     console.log('Fynally -> Promesa ejecutada')
   })
+
+/**
+ * Con las promesas manejamos procesos asincronos como si fueran sincronos, esto lo podemos ver mucho en una peticion a una API
+ * En algunos casos vamos a querer ocupar un valor retornado por una promesa y enviarsela a otra función que dependa de ella.
+ * Este valor no lo podemos tener en un inicio hasta ser resuelta la promesa, lo mas seguro es que si necesitamos un valor y aún no esta calculado nuestro interprete evalue el valor como undefined.
+ * Cuando hacemos peticiones a una API es muy probable que se presenten estos casos, por fortuna las promesas nos permiten hacer una concatenación de promesas.
+ * La concatenación de promesas se puede hacer con el mismo método .then(), mandando a llamar el método despues de otro .then() como se muestra a continuación.
+ *
+ * promesa
+ * .then(function(){..code..})
+ * .then(function(){..code..})
+ * .catch()
+ * .finally()
+ *
+ *
+ * Para pasar un valor de un then a otro, hemos de retornar ese valor dentro de la funcion que recibe then:
+ *
+ * promesa()
+ * .then(function(response){ // Recibimos el valor de la respuesta
+ *  let valor = response;
+ *  return valor; // Retornamos el valor que se desea usar en el siguiente .then()
+ * })
+ * .then(function(valor){ // Recibimos el valor enterior como argumento
+ *  let suma = 5 + valor;
+ * console.log(suma)
+ * })
+ */
+
+const getNumber = new Promise(function (resolve, reject) {
+  resolve(10)
+})
+
+getNumber
+  .then(function (response) {
+    return response // Pasamos el valor de 10 con el return
+  })
+  .then(function (data) {
+    // Obtenemos el valor por parametro
+    let suma = 5 + data // Podemos hacer uso del valor para gestionarlo
+    console.log(`La suma total es: ${suma}`)
+  })
+
+/**
+ * Simplificando la sintaxis usando arrow functions
+ */
+
+getNumber
+  .then(response => response) // Retornamos implicitamente el response
+  .then(data => {
+    // obtenemos el valor
+    let suma = 5 + data
+    console.log(`La suma total es: ${suma}`)
+  })
