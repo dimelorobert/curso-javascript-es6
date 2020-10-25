@@ -5,7 +5,10 @@ console.log(
 // https://randomuser.me/api/?results=5000
 
 /**
+ * ■■■■■■■■■■■■■■
  * Async
+ * ■■■■■■■■■■■■■■
+ *
  *
  * La declaración 'async' define una función, la cual devuelve un objeto AsyncFunction. Un objeto AsyncFunction, representa una función asíncrona que ejecuta el código contenido dentro de la función.
  *
@@ -68,7 +71,9 @@ console.log(hola2()) // Devuelve una promesa
 hola2().then(respuesta => console.log(respuesta)) // Devuelve Hola
 
 /**
+ * ■■■■■■■■■■■■■■
  * Await
+ * ■■■■■■■■■■■■■■
  *
  * El operador 'await' es usado PARA ESPERAR UNA PROMISE. Sólo puede ser usado dentro de una función async function.
  *
@@ -143,3 +148,68 @@ async function miFuncion2() {
 
 console.log('Promesa miFuncion2', miFuncion2()) // Devuelve una promesa
 miFuncion2().then(response => console.log('Devuelve', response)) // Devuelve 200
+
+/**
+ * ■■■■■■■■■■■■■■■■■■
+ * Control de Errores
+ * ■■■■■■■■■■■■■■■■■■
+ *
+ * Para el manejo de erroes con asyn / await, tenemos 2 opciones.
+ *  1.- try y catch : Dentro de nuestra función asincrona
+ *  2.- .catch()    : Cuando se consume la función asincrona como una promesa.
+ *
+ */
+
+/**
+ * Ejemplo try y catch
+ */
+
+function obtenerClima(ciudad) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      if (ciudad === 'cdmx') {
+        return resolve('Mayormente Nublado con 13°')
+      } else {
+        return reject('No se pudo obtener el clima 😭')
+      }
+    }, 3000)
+  })
+}
+
+const obtenerTrafico = new Promise((resolve, reject) => {
+  setTimeout(
+    () => resolve('Trafico fluido, tiempo al trabajo 20 mints aproximadamente'),
+    3000
+  )
+})
+
+const pronosticos = async () => {
+  try {
+    let clima = await obtenerClima('cdmx2')
+    let trafico = await obtenerTrafico
+
+    console.log(`${clima}\n${trafico}`)
+  } catch (error) {
+    console.log(`Error ${error}`)
+  }
+}
+
+pronosticos()
+// En este caso si es rechazada una promesa, la función asincrona pronosticos(), nos devolverá el catch -> Error No se pudo obtener el clima 😭
+
+/**
+ * Ejemplo .catch()
+ */
+
+const pronosticosP = async () => {
+  let clima = await obtenerClima('cdmx2')
+  let trafico = await obtenerTrafico
+
+  return [clima, trafico]
+}
+
+pronosticosP()
+  .then(([clima, trafico]) => console.log(`${clima}\n${trafico}`))
+  .catch(error => console.log(error))
+
+// En este caso si es rechazada una promesa, la función asincrona pronosticosP() nos devolverá un reject, por lo que el .cath() de la promesa mandará a consola -> No se pudo obtener el clima 😭
