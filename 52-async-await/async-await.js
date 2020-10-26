@@ -213,3 +213,88 @@ pronosticosP()
   .catch(error => console.log(error))
 
 // En este caso si es rechazada una promesa, la función asincrona pronosticosP() nos devolverá un reject, por lo que el .cath() de la promesa mandará a consola -> No se pudo obtener el clima 😭
+
+/**
+ * ■■■■■■■■■■■■■■■■■■■■■
+ * VENTAJAS & DESVENTAJAS
+ * ■■■■■■■■■■■■■■■■■■■■■
+ *
+ * Async/Await hace que el código parezca sincrónico y de un manera hace que se comporte de una forma más sincrónica.
+ *
+ * La palabra reservada 'await' bloquea la ejecución de todo el código que sigue hasta que se cumple la promesa, exactamente como lo hraría con una operación sincrónica. Ademas permite que otras tareas continúen ejecutándose mientras tanto, pero su propio código está bloqueado.
+ *
+ * Esto significa que el código podría REALENTIZARSE por un número significativo de promesas esperadas que ocurren una tras otra(en serie). Cada una esperaria que termine la anterior, mientras que lo que enverdad se desea es que comiencen de manera simultánea como si no se ocupara async/await.
+ *
+ * Para solucionar este problema existe un patrón que consiste
+ * desatar todos los procesos de promesa almacenando los objetos Promise en variables y, a continuación, a la espera de todos ellos depues con 'await'.
+ *
+ */
+
+/**
+ * Ejemplo - uso de async/await SIN OPTIMIZAR ❌
+ *
+ * Esperamos los valores que devuelve cada promesa y los guardamos en nuestras respectivas variables.
+ */
+
+// Promesa que devuelve un valor despues de 3 segundos
+const resolverDespues3Segundos = valor =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(valor)
+    }, 2000)
+  })
+
+const funcionAsincrona = async () => {
+  let valorA = await resolverDespues3Segundos(40) // Se ejecuta la operación y se espera a ser resuelta
+  let valorB = await resolverDespues3Segundos(60) // Una vez resuelta la anterios operación, se ejecuta acontinuación esta linea
+  return valorA + valorB // Pasados 6 segundos retornamos el valor de la suma
+}
+
+funcionAsincrona().then(response =>
+  console.log(
+    `%c La suma de valorA + valorB - 6 seg: ${response}`,
+    'color: palevioletred; font-weight: bold;'
+  )
+)
+
+/**
+ * Ejemplo - uso de async/await OPTIMIZADO ✔
+ *
+ * Resolvemos ambas promsesas simultaneamente en serie  y esperamos despues los valores de las variables donde se alojan los resultados de cada promesa.
+ *
+ */
+const funcionAsincronaOptimizada = async () => {
+  let valorA = resolverDespues3Segundos(40) // Se ejecuta la operación
+  let valorB = resolverDespues3Segundos(60) // Se ejecuta la operación simultaneamente con la anteiror
+  return (await valorA) + (await valorB) // Esperamos la asignación de los valores y retornamos en 3 segundos.
+
+  // NOTA: no debemos confundir con promise.all(), aqui esperamos cada valor respectivamente. Se aconseja el uso para estos casos de promise.all()
+}
+
+funcionAsincronaOptimizada().then(response =>
+  console.log(
+    `%cLa suma de valorA + valorB OPTIMIZADO - 3 seg: ${response}`,
+    'color: darkturquoise; font-weight: bold;'
+  )
+)
+
+/**
+ * Ejemplo - uso de async/await OPTIMIZADO con Promise.all() ✔
+ *
+ * Resolvemos ambas promsesas simultaneamente con el uso de Promise.all(), esperando el resultado anteponiendo await, una vez resueltas todas las promesas, guardamos el arreglo de valores y retornamos la suma.
+ */
+const funcionAsincronaPromiseAll = async () => {
+  let valorA = resolverDespues3Segundos(40)
+  let valorB = resolverDespues3Segundos(60)
+
+  const [valA, valB] = await Promise.all([valorA, valorB]) // Ejecutamos todas las operaciónes simultaneamente con primise.all y esperamos los resultados
+
+  return valA + valB // Retornamos pasados 3 segundos el valor de la suma
+}
+
+funcionAsincronaPromiseAll().then(response =>
+  console.log(
+    `%cLa suma de valorA + valorB OPTIMIZADO Promise.all() - 3 seg: ${response}`,
+    'color: lightgreen; font-weight: bold;'
+  )
+)
