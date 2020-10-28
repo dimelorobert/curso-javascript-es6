@@ -303,6 +303,6 @@ funcionAsincronaPromiseAll().then(response =>
  * IMPORTANTE:
  *
  * Async/ Await se basa en promesas, por lo que es compatible con todas las caracteristicas que ofrecen las promesas.
- * Por lo que en estos casos lo mejor es usas Promise.all() como mejor prectica.
+ * Por lo que en estos casos lo mejor es usas Promise.all() como mejor practica.
  *
  */
